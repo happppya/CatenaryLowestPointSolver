@@ -21,7 +21,7 @@ print("The lowest point is:", lowestPoint)
 
 The script breaks down the 3D spatial problem into a 2D mathematical curve, solves for the catenary parameters, and maps the result back into 3D space.
 
-1. Vector Projection & Edge Cases
+### 1) Vector Projection & Edge Cases
 
 Before tackling the complex math, the script flattens the problem. It isolates the vertical difference ($h$) and the horizontal distance ($d$) between the two anchors. It then checks for two physical edge cases:
 
@@ -29,7 +29,7 @@ Taut or Impossible Length: If the given length is less than or equal to the stra
 
 Vertically Aligned Anchors: If horizontal distance ($d \approx 0$), the rope hangs straight down. The lowest point is the lowest anchor's Y-coordinate, minus half of the "excess" rope length.
 
-2. The Catenary Equation & Root Finding
+### 2) The Catenary Equation & Root Finding
 
 If the rope hangs freely, it forms a catenary curve. To find the parameters of this curve, we must solve a transcendental equation.
 
@@ -49,7 +49,7 @@ Initial Guess: It uses a Taylor series expansion ($\frac{\sinh(u)}{u} \approx 1 
 
 Iteration: It loops 10 times to refine $u$ using the formula $u_{n+1} = u_n - \frac{f(u_n)}{f'(u_n)}$, rapidly converging on the exact value.
 
-3. Locating the Vertex
+### 3) Locating the Vertex
 
 Once $u$ is found, the scaling parameter $a$ of the catenary is calculated as:
 
@@ -63,7 +63,7 @@ $$r_0 = \frac{d}{2} - \frac{a}{2} \ln\left(\frac{L + h}{L - h}\right)$$
 
 Note: If $r_0$ falls outside the range of $[0, d]$, it means the mathematical vertex of the curve lies outside the suspended segment (e.g., a highly asymmetric suspension where the curve strictly goes up). In this case, the lowest point is just the lowest anchor point.
 
-4. 3D Re-Mapping
+### 4) 3D Re-Mapping
 
 With the horizontal offset ($r_0$) known, the script calculates the exact Y-coordinate of the lowest point:
 
